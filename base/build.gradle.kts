@@ -38,12 +38,12 @@ android {
 
 dependencies {
 
-    api("androidx.core:core-ktx:1.9.0")
-    api("androidx.appcompat:appcompat:1.6.1")
-    api("com.google.android.material:material:1.8.0")
+    api("androidx.core:core-ktx:1.15.0")
+    api("androidx.appcompat:appcompat:1.7.0")
+    api("com.google.android.material:material:1.12.0")
     api("com.github.bumptech.glide:glide:4.16.0")
     api("com.google.code.gson:gson:2.10.1")
-    api("androidx.core:core-ktx:1.12.0")
-    api("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-    api("androidx.lifecycle:lifecycle-common:2.7.0")
+    api("androidx.core:core-ktx:1.15.0")
+    api("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+    api("androidx.lifecycle:lifecycle-common:2.8.7")
 }
