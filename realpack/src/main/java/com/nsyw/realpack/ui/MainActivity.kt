@@ -7,8 +7,11 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.Settings
 import android.view.accessibility.AccessibilityManager
+import android.widget.SeekBar
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.nsyw.base.base.BaseActivity
+import com.nsyw.realpack.R
 import com.nsyw.realpack.databinding.RealActivityMainBinding
 import com.nsyw.realpack.vm.MainViewModel
 
@@ -69,6 +72,19 @@ class MainActivity : BaseActivity() {
         binding.cbBackHome.setOnCheckedChangeListener { buttonView, isChecked ->
             com.nsyw.realpack.service.Runtime.backHome = isChecked
         }
+
+        val tvDelayTime = findViewById<TextView>(R.id.tv_delay_time)
+        val sbDelayTime = findViewById<SeekBar>(R.id.sb_delay_time)
+
+        sbDelayTime.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                delayTime = progress * 500 // Convert progress to milliseconds
+                tvDelayTime.text = "Delay time: ${delayTime / 1000.0}s"
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
     }
 
 
@@ -88,6 +104,8 @@ class MainActivity : BaseActivity() {
     }
 
     companion object {
+        public var delayTime: Int = 0
+
         private const val REQUEST_NOTIFICATION_CODE = 1001
         private const val REQUEST_ACCESSIBILITY_CODE = 1002
         private const val REQUEST_PERMISSION_WRITE_SECURE_SETTINGS = 1003

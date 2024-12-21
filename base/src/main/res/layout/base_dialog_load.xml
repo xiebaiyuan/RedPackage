@@ -16,8 +16,8 @@
         android:background="#A0000000"
         android:gravity="center"
         android:orientation="vertical"
-        app:shape_solid_color="@{0xA0000000}"
-        app:shape_bg_radius="@{10f}">
+        app:shape_bg_radius="@{10f}"
+        app:shape_solid_color="@{0xA0000000}">
 
         <ImageView
             android:id="@+id/iv_load"

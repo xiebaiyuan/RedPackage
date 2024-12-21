@@ -7,11 +7,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.nsyw.base.utils.ToastUtil
 import com.nsyw.base.widget.load.LoadState
 
-abstract class BaseDialogFragment:DialogFragment() {
+abstract class BaseDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewModel= ViewModelProvider(this)[BaseViewModel::class.java]
+        val viewModel = ViewModelProvider(this)[BaseViewModel::class.java]
         viewModel.loadState.observe(this) {
             when (it.state) {
                 LoadState.LOAD_SHOW -> {
@@ -24,13 +24,13 @@ abstract class BaseDialogFragment:DialogFragment() {
             }
         }
         viewModel.toastMsg.observe(this) {
-            context?.let { cxt->
+            context?.let { cxt ->
                 ToastUtil.showToast(cxt, it)
             }
         }
     }
 
-    inline fun<reified T:BaseViewModel> getViewModel():T{
+    inline fun <reified T : BaseViewModel> getViewModel(): T {
         return ViewModelProvider(this)[T::class.java]
     }
 }

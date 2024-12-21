@@ -8,7 +8,7 @@ object LoadDialogUtil {
 
     fun showDialog(loadText: String?, fragmentManager: FragmentManager) {
         loadDialog = LoadDialog.showDialog(
-            params = LoadDialog.LoadDialogDto(loadText = loadText?:"加载中").toJson(),
+            params = LoadDialog.LoadDialogDto(loadText = loadText ?: "加载中").toJson(),
             fragmentManager = fragmentManager
         )
     }

@@ -7,19 +7,20 @@
         tools:ignore="ProtectedPermissions" />
     <queries>
         <intent>
-            <action android:name="android.intent.action.MAIN"/>
+            <action android:name="android.intent.action.MAIN" />
         </intent>
     </queries>
 
     <application>
         <activity
             android:name=".ui.MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".service.AutoOpenLuckyMoneyService"
             android:enabled="true"
@@ -33,9 +34,10 @@
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_service" />
         </service>
-        <service android:name=".service.WechatNotificationListenerService"
-            android:label="微信通知监听服务"
+        <service
+            android:name=".service.WechatNotificationListenerService"
             android:exported="true"
+            android:label="微信通知监听服务"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />

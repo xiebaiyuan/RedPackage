@@ -1,6 +1,5 @@
 package com.nsyw.base.base
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,7 +30,7 @@ open class BaseViewModel() : ViewModel() {
         }
     }
 
-    open fun getApplication():BaseApp{
+    open fun getApplication(): BaseApp {
         return BaseApp.getApp()
     }
 }

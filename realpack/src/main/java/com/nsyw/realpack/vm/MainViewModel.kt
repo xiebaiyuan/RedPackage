@@ -101,7 +101,7 @@ class MainViewModel : BaseViewModel() {
         }
     }
 
-    fun checkStatus(context: Context,accessibilityManager:AccessibilityManager) {
+    fun checkStatus(context: Context, accessibilityManager: AccessibilityManager) {
         _accessibilityOpenStatus.value = accessibilityManager.isEnabled
 
         val packages = NotificationManagerCompat.getEnabledListenerPackages(context)

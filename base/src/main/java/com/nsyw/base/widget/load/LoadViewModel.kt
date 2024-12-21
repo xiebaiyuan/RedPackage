@@ -1,6 +1,5 @@
 package com.nsyw.base.widget.load
 
-import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.nsyw.base.base.BaseViewModel
 

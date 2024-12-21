@@ -14,20 +14,20 @@ class WechatNotificationListenerService : NotificationListenerService() {
     private val tag = WechatNotificationListenerService::class.java.simpleName
 
     override fun onListenerConnected() {
-        Runtime.IsNotificationConnected=true
+        Runtime.IsNotificationConnected = true
         super.onListenerConnected()
     }
 
     override fun onListenerDisconnected() {
         super.onListenerDisconnected()
 //        Log.d(tag, "WechatNotificationListenerService Disconnected..")
-        requestRebind(ComponentName(this,NotificationListenerService::class.java))
+        requestRebind(ComponentName(this, NotificationListenerService::class.java))
     }
 
 
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         // 如果该通知的包名不是微信，那么 pass 掉
-        if ( PACKAGE_WX  != sbn!!.packageName) {
+        if (PACKAGE_WX != sbn!!.packageName) {
             return
         }
         val notification = sbn.notification ?: return
@@ -50,7 +50,7 @@ class WechatNotificationListenerService : NotificationListenerService() {
         }
     }
 
-    companion object{
-        private const val PACKAGE_WX="com.tencent.mm"
+    companion object {
+        private const val PACKAGE_WX = "com.tencent.mm"
     }
 }

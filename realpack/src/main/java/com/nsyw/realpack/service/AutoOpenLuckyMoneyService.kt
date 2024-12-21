@@ -4,6 +4,8 @@ import android.accessibilityservice.AccessibilityService
 import android.graphics.PixelFormat
 import android.graphics.Rect
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -19,6 +21,7 @@ import android.view.accessibility.AccessibilityNodeInfo
 import com.nsyw.base.base.BaseApp
 import com.nsyw.base.utils.DisplayUtil
 import com.nsyw.realpack.R
+import com.nsyw.realpack.ui.MainActivity
 
 class AutoOpenLuckyMoneyService : AccessibilityService() {
 
@@ -151,7 +154,18 @@ class AutoOpenLuckyMoneyService : AccessibilityService() {
 
             if (!node.isClickable) continue
 //            Log.d(tag, "点击红包")
-            node.performAction(AccessibilityNodeInfo.ACTION_CLICK)
+
+//            node.performAction(AccessibilityNodeInfo.ACTION_CLICK)
+            val delayTime = MainActivity.delayTime.toLong()
+            // 100ms内 直接点击。
+            if (delayTime <= 100) {
+                node.performAction(AccessibilityNodeInfo.ACTION_CLICK)
+            } else {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    node.performAction(AccessibilityNodeInfo.ACTION_CLICK)
+                }, delayTime)
+            }
+
             isLooking = false
             return true
         }

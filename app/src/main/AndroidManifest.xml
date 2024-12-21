@@ -12,7 +12,6 @@
         android:roundIcon="@drawable/red_float_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.AutoRedPack"
-        tools:targetApi="31">
-    </application>
+        tools:targetApi="31"></application>
 
 </manifest>
