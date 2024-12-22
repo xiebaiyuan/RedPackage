@@ -79,7 +79,7 @@ class MainActivity : BaseActivity() {
         sbDelayTime.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 delayTime = progress * 500 // Convert progress to milliseconds
-                tvDelayTime.text = "Delay time: ${delayTime / 1000.0}s"
+                tvDelayTime.text = "延迟时间: ${delayTime / 1000.0}s"
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -104,7 +104,7 @@ class MainActivity : BaseActivity() {
     }
 
     companion object {
-        public var delayTime: Int = 0
+        var delayTime: Int = 0
 
         private const val REQUEST_NOTIFICATION_CODE = 1001
         private const val REQUEST_ACCESSIBILITY_CODE = 1002

@@ -56,11 +56,13 @@ class AutoOpenLuckyMoneyService : AccessibilityService() {
     private fun handleWindowStateChanged(event: AccessibilityEvent) {
         if (!isOpening && event.className == Config.RedPackageReceiveClassName) {
             isOpening = rootInActiveWindow?.let { openRedPackage(it) } ?: false
-            if (!isOpening) {
+            if (!isOpening && Runtime.backHome) {
                 performGlobalAction(GLOBAL_ACTION_BACK)
             }
         } else if (isOpening && (event.className == Config.RedPackageDetailClassName || event.className == Config.LuckyMoneyBeforeDetailUI)) {
-            performGlobalAction(GLOBAL_ACTION_BACK)
+            if (Runtime.backHome) {
+                performGlobalAction(GLOBAL_ACTION_BACK)
+            }
             isOpening = false
         }
     }
@@ -76,8 +78,11 @@ class AutoOpenLuckyMoneyService : AccessibilityService() {
                         } else {
                         }
                     }
+
                     isOpening && isRedPackageDialog(rootNode) && redPackageZero(rootNode) -> {
-                        performGlobalAction(GLOBAL_ACTION_BACK)
+                        if (Runtime.backHome) {
+                            performGlobalAction(GLOBAL_ACTION_BACK)
+                        }
                         isOpening = false
                     }
 
@@ -93,7 +98,8 @@ class AutoOpenLuckyMoneyService : AccessibilityService() {
     }
 
     private fun openRedPackage(nodeInfo: AccessibilityNodeInfo): Boolean {
-        val openBtn = nodeInfo.findAccessibilityNodeInfosByViewId(Config.OpenButtonResId).firstOrNull()
+        val openBtn =
+            nodeInfo.findAccessibilityNodeInfosByViewId(Config.OpenButtonResId).firstOrNull()
         return if (openBtn?.isClickable == true) {
             openBtn.performAction(AccessibilityNodeInfo.ACTION_CLICK)
             true
@@ -127,8 +133,12 @@ class AutoOpenLuckyMoneyService : AccessibilityService() {
     }
 
     private fun isValidRedPackage(node: AccessibilityNodeInfo, width: Int): Boolean {
-        if (node.findAccessibilityNodeInfosByViewId(Config.RedPackageTextResId).isEmpty()) return false
-        if (node.findAccessibilityNodeInfosByViewId(Config.RedPackageExpiredResId).isNotEmpty()) return false
+        if (node.findAccessibilityNodeInfosByViewId(Config.RedPackageTextResId)
+                .isEmpty()
+        ) return false
+        if (node.findAccessibilityNodeInfosByViewId(Config.RedPackageExpiredResId)
+                .isNotEmpty()
+        ) return false
 
         val rect = Rect()
         node.getBoundsInScreen(rect)
@@ -172,10 +182,13 @@ class AutoOpenLuckyMoneyService : AccessibilityService() {
         val contentView = node.findAccessibilityNodeInfosByViewId(Config.HomeRedPackageResId)
         if (contentView.isEmpty()) return false
 
-        val hasRedPackage = contentView.any { it.text.split(":").getOrNull(1)?.contains("[微信红包]") == true }
+        val hasRedPackage =
+            contentView.any { it.text.split(":").getOrNull(1)?.contains("[微信红包]") == true }
         if (!hasRedPackage || !node.isClickable) return false
 
-        val newMessage = node.findAccessibilityNodeInfosByViewId(Config.HomeRedPackageNewMessageResId).firstOrNull()
+        val newMessage =
+            node.findAccessibilityNodeInfosByViewId(Config.HomeRedPackageNewMessageResId)
+                .firstOrNull()
         return newMessage?.isVisibleToUser == true
     }
 
@@ -185,7 +198,8 @@ class AutoOpenLuckyMoneyService : AccessibilityService() {
             val lp = WindowManager.LayoutParams().apply {
                 type = WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+                    layoutInDisplayCutoutMode =
+                        WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
                 }
                 format = PixelFormat.TRANSLUCENT
                 flags = flags or
@@ -210,10 +224,12 @@ class AutoOpenLuckyMoneyService : AccessibilityService() {
     }
 
     private fun isChatDetailPage(rootNode: AccessibilityNodeInfo): Boolean {
-        return rootNode.findAccessibilityNodeInfosByViewId(Config.ChatDetailPageLayoutResId).isNotEmpty()
+        return rootNode.findAccessibilityNodeInfosByViewId(Config.ChatDetailPageLayoutResId)
+            .isNotEmpty()
     }
 
     private fun isRedPackageDialog(rootNode: AccessibilityNodeInfo): Boolean {
-        return rootNode.findAccessibilityNodeInfosByViewId(Config.RedPackageDialogResId).isNotEmpty()
+        return rootNode.findAccessibilityNodeInfosByViewId(Config.RedPackageDialogResId)
+            .isNotEmpty()
     }
 }
