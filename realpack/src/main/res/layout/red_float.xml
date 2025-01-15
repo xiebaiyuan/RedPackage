@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="60dp"
-    android:layout_height="60dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:alpha="0.3"
-    android:background="@drawable/red_float_bg">
+    android:background="@android:color/transparent">
 
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_gravity="center"
-        android:alpha="0.3"
+        android:alpha="0.4"
         android:scaleType="fitCenter"
-        android:src="@drawable/mine" />
+        android:src="@drawable/mine_circle" />
 
 
 </FrameLayout>
